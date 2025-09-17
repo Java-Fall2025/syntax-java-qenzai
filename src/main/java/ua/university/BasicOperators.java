@@ -35,11 +35,14 @@ public class BasicOperators {
             case 5 -> "Friday";
             case 6 -> "Saturday";
             case 7 -> "Sunday";
-            default -> "Invalid day";
+            default -> throw new IllegalArgumentException("Day must be between 1 and 7");
         };
     }
 
     public static int[] countdown(int n) {
+        if (n <= 0) {
+            throw new IllegalArgumentException("n must be positive");
+        }
         int[] result = new int[n];
         for (int i = 0; i < n; i++) {
             result[i] = n - i;
@@ -57,6 +60,7 @@ public class BasicOperators {
     }
 
     public static int[] reverseArray(int[] arr) {
+        if (arr == null) throw new IllegalArgumentException("Array cannot be null");
         int[] res = new int[arr.length];
         for (int i = 0; i < arr.length; i++) {
             res[i] = arr[arr.length - 1 - i];
@@ -65,8 +69,12 @@ public class BasicOperators {
     }
 
     public static int sumMatrix(int[][] matrix) {
+        if (matrix == null || matrix.length == 0) {
+            throw new IllegalArgumentException("Matrix cannot be null or empty");
+        }
         int sum = 0;
         for (int[] row : matrix) {
+            if (row == null) throw new IllegalArgumentException("Matrix row cannot be null");
             for (int val : row) {
                 sum += val;
             }
@@ -75,6 +83,7 @@ public class BasicOperators {
     }
 
     public static boolean isPalindrome(String s) {
+        if (s == null) throw new IllegalArgumentException("String cannot be null");
         String clean = s.replaceAll("\\s+", "").toLowerCase();
         int i = 0, j = clean.length() - 1;
         while (i < j) {
@@ -86,7 +95,9 @@ public class BasicOperators {
     }
 
     public static int[] findMinMax(int[] arr) {
-        if (arr.length == 0) throw new IllegalArgumentException("Array cannot be empty");
+        if (arr == null || arr.length == 0) {
+            throw new IllegalArgumentException("Array cannot be null or empty");
+        }
         int min = arr[0], max = arr[0];
         for (int val : arr) {
             if (val < min) min = val;
@@ -96,6 +107,9 @@ public class BasicOperators {
     }
 
     public static int[][] multiplicationTable(int n) {
+        if (n <= 0) {
+            throw new IllegalArgumentException("n must be positive");
+        }
         int[][] table = new int[n][n];
         for (int i = 1; i <= n; i++) {
             for (int j = 1; j <= n; j++) {
@@ -106,6 +120,9 @@ public class BasicOperators {
     }
 
     public static int[] evenNumbersUpToN(int n) {
+        if (n < 2) {
+            throw new IllegalArgumentException("n must be >= 2");
+        }
         int count = n / 2;
         int[] res = new int[count];
         for (int i = 1; i <= count; i++) {
@@ -115,7 +132,7 @@ public class BasicOperators {
     }
 
     public static boolean isPrime(int n) {
-        if (n < 2) return false;
+        if (n < 2) throw new IllegalArgumentException("n must be >= 2");
         for (int i = 2; i * i <= n; i++) {
             if (n % i == 0) return false;
         }
@@ -123,6 +140,7 @@ public class BasicOperators {
     }
 
     public static int countVowels(String s) {
+        if (s == null) throw new IllegalArgumentException("String cannot be null");
         int count = 0;
         String vowels = "aeiouAEIOU";
         for (char c : s.toCharArray()) {
@@ -132,7 +150,7 @@ public class BasicOperators {
     }
 
     public static int[] fibonacci(int n) {
-        if (n <= 0) return new int[0];
+        if (n <= 0) throw new IllegalArgumentException("n must be positive");
         int[] fib = new int[n];
         fib[0] = 0;
         if (n > 1) fib[1] = 1;
@@ -143,10 +161,16 @@ public class BasicOperators {
     }
 
     public static int[][] transpose(int[][] matrix) {
+        if (matrix == null || matrix.length == 0) {
+            throw new IllegalArgumentException("Matrix cannot be null or empty");
+        }
         int rows = matrix.length;
         int cols = matrix[0].length;
         int[][] transposed = new int[cols][rows];
         for (int i = 0; i < rows; i++) {
+            if (matrix[i].length != cols) {
+                throw new IllegalArgumentException("Matrix must be rectangular");
+            }
             for (int j = 0; j < cols; j++) {
                 transposed[j][i] = matrix[i][j];
             }
@@ -155,6 +179,7 @@ public class BasicOperators {
     }
 
     public static int[] sortArray(int[] arr) {
+        if (arr == null) throw new IllegalArgumentException("Array cannot be null");
         int[] copy = Arrays.copyOf(arr, arr.length);
         Arrays.sort(copy);
         return copy;
